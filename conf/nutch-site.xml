@@ -1,0 +1,308 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+	<!-- --> 
+	<property>
+		<name>plugin.folders</name>
+		<value>D:/gitwork/nutch-release-1.10/build/plugins</value>
+	</property>
+	<property>
+		<name>http.agent.name</name>
+		<value></value>
+	</property>
+	<property>
+		<name>file.content.ignored</name>
+		<value>true</value>
+		<description>If true, no file content will be saved during fetch.
+			And
+			it is probably what we want to set most of time, since file:// URLs
+			are meant to be local and we can always use them directly at parsing
+			and indexing stages. Otherwise file contents will be saved.
+			!! NO
+			IMPLEMENTED YET !!
+		</description>
+	</property>
+	<property>
+		<name>http.agent.name</name>
+		<value>Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML,
+			like Gecko) Chrome/39.0.2171.95 Safari/537.36
+		</value>
+	</property>
+	<property>
+		<name>http.agent.version</name>
+		<value>39.0.2171.95</value>
+	</property>
+	<property>
+		<name>http.robots.agents</name>
+		<value>*</value>
+		<description>The agent strings we'll look for in robots.txt files,
+			comma-separated, in decreasing order of
+			precedence. You should
+			put the
+			value of http.agent.name as the first agent name, and keep the
+			default * at the
+			end of the list. E.g.: BlurflDev,Blurfl,*
+		</description>
+	</property>
+
+	<property>
+		<name>http.robots.403.allow</name>
+		<value>true</value>
+		<description>Some servers return HTTP status 403 (Forbidden) if
+			/robots.txt doesn't exist. This should probably mean that we are
+			allowed to crawl the site nonetheless. If this is set to false,
+			then
+			such sites will be treated as forbidden.
+		</description>
+	</property>
+	<property>
+		<name>plugin.includes</name>
+		<value>protocol-http|urlfilter-regex|extractor|indexer-txt</value>
+		<!--<value>protocol-http-proxy|urlfilter-regex|parse-(html|tika)|extractor|indexer-(txt|solr)|scoring-opic|urlnormalizer-(pass|regex|basic)</value>-->
+		<!-- <value>protocol-http|urlfilter-regex|extractor|scoring-opic|urlnormalizer-(pass|regex|basic)</value> -->
+		<!-- <value>protocol-http|urlfilter-regex|extractor|scoring-opic|urlnormalizer-(pass|regex|basic)</value> -->
+		<description>Regular expression naming plugin directory names to
+			include. Any plugin not matching this expression is excluded.
+			In any
+			case you need at least include the nutch-extensionpoints plugin.
+			By
+			default Nutch includes crawling just HTML and plain text via HTTP,
+			and basic indexing and search plugins. In order to use HTTPS please
+			enable
+			protocol-httpclient, but be aware of possible intermittent
+			problems with the
+			underlying commons-httpclient library.
+		</description>
+	</property>
+
+	<property>
+		<name>extractor.file</name>
+		<value>extractors.xml</value>
+	</property>
+
+	<property>
+		<name>parser.html.outlinks.ignore_tags</name>
+		<value>img,script,link</value>
+		<description>Comma separated list of HTML tags, from which outlinks
+			shouldn't be extracted. Nutch takes links
+			from: a, area, form, frame,
+			iframe, script, link, img. If you add any of those tags here, it
+			won't be taken.
+			Default is empty list. Probably reasonable value
+			for
+			most people would be "img,script,link".
+		</description>
+	</property>
+
+	<property>
+		<name>http.redirect.max</name>
+		<value>10</value>
+		<description>The maximum number of redirects the fetcher will follow
+			when
+			trying to fetch a page. If set to
+			negative or 0, fetcher won't
+			immediately
+			follow redirected URLs, instead it will record them for
+			later
+			fetching.
+		</description>
+	</property>
+
+	<property>
+		<name>db.max.outlinks.per.page</name>
+		<value>-1</value>
+		<description>The maximum number of outlinks that we'll process for a
+			page.
+			If this value is nonnegative (>=0), at
+			most
+			db.max.outlinks.per.page outlinks
+			will be processed for a page;
+			otherwise, all outlinks will be
+			processed.
+		</description>
+	</property>
+
+	<property>
+		<name>db.max.anchor.length</name>
+		<value>1000</value>
+		<description>The maximum number of characters permitted in an anchor.
+		</description>
+	</property>
+
+	<property>
+		<name>db.ignore.internal.links</name>
+		<value>false</value>
+		<description>If true, when adding new links to a page, links from
+			the
+			same host are ignored. This is an effective
+			way to limit the
+			size of
+			the link database, keeping only the highest quality
+			links.
+		</description>
+	</property>
+
+	<property>
+		<name>db.ignore.external.links</name>
+		<value>false</value>
+		<description>If true, outlinks leading from a page to external hosts
+			will be ignored. This is an effective way to
+			limit the crawl to
+			include
+			only initially injected hosts, without creating complex
+			URLFilters.
+		</description>
+	</property>
+
+	<property>
+		<name>parser.html.impl</name>
+		<value>neko</value>
+		<description>HTML Parser implementation. Currently the following
+			keywords
+			are recognized: "neko" uses NekoHTML,
+			"tagsoup" uses TagSoup.
+		</description>
+	</property>
+
+	<property>
+		<name>fetcher.server.delay</name>
+		<value>2.0</value>
+		<description>The number of seconds the fetcher will delay between
+			successive requests to the same server.
+		</description>
+	</property>
+
+	<property>
+		<name>fetcher.maxNum.threads</name>
+		<value>5</value>
+		<description>Max number of fetch threads allowed when using
+			fetcher.bandwidth.target. Defaults to fetcher.threads.fetch if
+			unspecified or
+			set to a value lower than it.
+		</description>
+	</property>
+	
+	<property>
+		<name>fs.file.impl</name>
+		<value>org.apache.hadoop.fs.LocalFileSystem</value>
+		<description>The FileSystem for file: uris.</description>
+	</property>
+	<property>
+		<name>fs.hdfs.impl</name>
+		<value>org.apache.hadoop.hdfs.DistributedFileSystem</value>
+		<description>The FileSystem for hdfs: uris.</description>
+	</property>
+
+	<property>
+		<name>file.content.limit</name>
+		<value>-1</value>
+		<description>The length limit for downloaded content using the file://
+			protocol, in bytes. If this value is nonnegative (>=0), content
+			longer
+			than it will be truncated; otherwise, no truncation at all. Do
+			not
+			confuse this setting with the http.content.limit setting.
+		</description>
+	</property>
+
+	<property>
+		<name>http.content.limit</name>
+		<value>-1</value>
+		<description>The length limit for downloaded content using the file://
+			protocol, in bytes. If this value is nonnegative (>=0), content
+			longer
+			than it will be truncated; otherwise, no truncation at all. Do
+			not
+			confuse this setting with the http.content.limit setting.
+		</description>
+	</property>
+
+	<property>
+		<name>parser.skip.truncated</name>
+		<value>false</value>
+		<description>Boolean value for whether we should skip parsing for
+			truncated documents. By default this
+			property is activated due to
+			extremely high levels of CPU which parsing can
+			sometimes take.
+		</description>
+	</property>
+
+	<property>
+	  <name>db.max.outlinks.per.page</name>
+	  <value>-1</value>
+	  <description>The maximum number of outlinks that we'll process for a page.
+	  If this value is nonnegative (>=0), at most db.max.outlinks.per.page outlinks
+	  will be processed for a page; otherwise, all outlinks will be processed.
+	  </description>
+	</property>
+	
+	<property>
+	  <name>http.accept.language</name>
+	  <!-- <value>en-us,en-gb,en;q=0.7,*;q=0.3</value> -->
+	  <value>zh-cn,zh;q=0.8,en-us;q=0.5,en;q=0.3</value>
+	  	
+	  <description>Value of the "Accept-Language" request header field.
+	  This allows selecting non-English language as default one to retrieve.
+	  It is a useful setting for search engines build for certain national group.
+	  </description>
+	</property>
+
+	<!-- 过滤最小得分数 -->
+	<property>
+		<name>generate.min.score</name>
+		<value>-1</value>
+	</property>	
+	
+	<property>
+		<name>http.timeout</name>
+		<value>30000</value>
+	</property>
+	
+	<!-- 提高Nutch局域网抓取的速度,抓取器在同一服务器的逐次请求所延迟的秒数 -->
+	<property>
+		<name>fetcher.server.delay</name>
+		<!-- 单位 秒 -->
+		<value>1.1</value>
+	</property>
+
+	<!-- 设定抓取器在同一服务器的逐次请求所延迟最小的秒数 -->
+	<property>
+		<name>fetcher.server.min.delay</name>
+		<!-- 单位 秒 -->
+		<value>1.1</value>
+	</property>
+	
+	
+	<property>
+		<name>txt.batch.size</name>
+		<value>5000</value>
+	</property>
+	<property>
+		<name>txt.max.line</name>
+		<value>50000</value>
+	</property>	
+	<!-- 文本文件数据映射文件 -->
+	<property>
+		<name>txt.mapping.file</name>
+		<value>txtindex-mapping.xml</value>
+	</property>
+	<!-- 文本文件数据存放目录 -->
+	<property>
+		<name>txt.data.dir</name>
+		<value>D:/data/txt/baike</value>
+	</property>
+	<!-- 抓取防盗链的网站，httpcode 302,301 -->
+	<property>
+		<name>skip.web.protection</name>
+		<value>false</value>
+	</property>	
+	<!-- 忽略索引模块清除数据 -->
+	<property>
+		<name>skip.indexer.clean</name>
+		<value>true</value>
+	</property>
+</configuration>

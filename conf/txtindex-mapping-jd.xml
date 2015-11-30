@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- syscode 1 美悦优选 2 考拉 3 洋码头 4 金箍棒 9 亚马逊，5 德国，6 英国，7 日本，8 美国，9 中国，默认为9 
+	10 ebay， 11 京东，12 京东全球购，默认为11 13 天猫国际 14 苏宁 15 海淘网 -->
+<mapping>
+	<fields>
+		<!-- 商品SKUID(skuid_syscode) -->
+		<field dest="skuid" source="prodId"/>
+
+		<!-- 商城编号 -->
+		<field dest="syscode" constant="11"/>
+
+		<!-- 抓取日期(格式:20150630) -->
+		<field dest="day" source="time" type="date" format="yyyyMMdd" />
+
+		<!-- 电商平台名称 -->
+		<field dest="mallname" source="mallName" />
+
+		<!-- 商品名称 -->
+		<field dest="prodname" source="prodName" />
+
+		<!-- 货币类型(如美元、欧元、人民币) -->
+		<field dest="type" constant="人民币"/>
+
+		<!-- 商品价格 -->
+		<field dest="price" source="price" type="float" />
+
+		<!-- 链接地址 -->
+		<field dest="url" source="url" />
+
+		<!-- 商品图片地址 -->
+		<field dest="picurl" source="img" />
+
+		<!-- 商品参数 -->
+		<field dest="args" source="proParam" />
+
+		<!-- 商品介绍 -->
+		<field dest="intro" source="proIntro" />
+
+		<!-- 评论数 -->
+		<field dest="commentnum" constant="0" source="commentnum"/>
+
+		<!-- 商品类目 -->
+		<field dest="cate1" source="category1" />
+		<field dest="cate2" source="category2" />
+		<field dest="cate3" source="category3" />
+		<field dest="cate4" source="category4" />
+
+		<!-- 抓取时间 -->
+		<field dest="grabtime" source="time" />
+
+		<!-- 所属国家 -->
+		<field dest="country" constant="中国"/>
+
+		<!-- 备注 -->
+		<field dest="remark" source="remark"/>
+	</fields>
+	<requiredSourceField>prodName,skuId</requiredSourceField>
+</mapping>

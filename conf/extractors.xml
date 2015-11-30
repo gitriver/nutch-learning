@@ -1,0 +1,37 @@
+<config xmlns="http://www.alad.me" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.alad.me">
+	<types>
+		<type name="string" />
+		<type name="long" converter="me.alad.nutch.html.extractor.convert.LongConverter" />
+		<type name="float" converter="me.alad.nutch.html.extractor.convert.FloatConverter" />
+	</types>
+	<fields>
+		<field name="title" type="string" />
+		<field name="metadesc" type="string" />
+		<field name="keywords" type="string" />
+		<field name="time" type="long" />
+	</fields>
+	<documents>
+		<!-- baike -->
+		<document url=".*" engine="css">
+			<extract-to field="title">
+				<text>
+					<expr value="title" />
+				</text>
+			</extract-to>
+			<extract-to field="metadesc">
+				<attribute name="content">
+					<expr value="meta[name=description]" />
+				</attribute>
+			</extract-to>
+			<extract-to field="keywords">
+				<attribute name="content">
+					<expr value="meta[name=keywords]" />
+				</attribute>
+			</extract-to>
+			<extract-to field="time">
+				<constant value="1" />
+			</extract-to>
+		</document>
+	</documents>
+</config>

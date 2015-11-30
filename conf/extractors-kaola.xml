@@ -1,0 +1,109 @@
+<config xmlns="http://www.alad.me" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.alad.me">
+	<types>
+		<type name="string" />
+		<type name="long" converter="me.alad.nutch.html.extractor.convert.LongConverter" />
+		<type name="float" converter="me.alad.nutch.html.extractor.convert.FloatConverter" />
+	</types>
+	<fields>
+		<!-- 商品名称 -->
+		<field name="prodName" type="string" />
+
+		<!-- sku编号 -->
+		<field name="skuId" type="string" />
+
+		<!-- 商品编号skuid+mallno -->
+		<field name="prodId" type="string" />
+
+		<!-- 商品分类 -->
+		<field name="category1" type="string" />
+		<field name="category2" type="string" />
+		<field name="category3" type="string" />
+		<field name="category4" type="string" />
+
+		<!-- 商品参数 -->
+		<field name="proParam" type="string" />
+
+		<!-- 商品简介 -->
+		<field name="proIntro" type="string" />
+
+		<!-- 商品促销 -->
+		<field name="promotion" type="string" />
+
+		<!-- 商品图片 -->
+		<field name="img" type="string" />
+
+		<!-- 价格 -->
+		<field name="price" type="string" />
+
+		<!-- 运费 -->
+		<field name="fare" type="string" />
+
+		<!-- 关税 -->
+		<field name="tariff" type="string" />
+
+		<!-- 商城名称 -->
+		<field name="mallName" type="string" />
+
+		<!-- 商城名称编号 -->
+		<field name="mallNo" type="string" />
+
+		<!-- 国家 -->
+		<field name="nation" type="string" />
+
+		<!-- 商品详细URL -->
+		<field name="url" type="string" />
+		
+		<!-- 状态 -->
+		<field name="status" type="string" />
+		
+		<!-- 备注 -->
+		<field name="remark" type="string" />
+	</fields>
+	<documents>		
+		<!-- 考拉 -->
+		<document url="^http://www.kaola.com/product/.*" engine="css">
+			<extract-to field="mallName">
+				<constant value="考拉" />
+			</extract-to>
+			<extract-to field="mallNo">
+				<constant value="2" />
+			</extract-to>
+			<extract-to field="nation">
+				<constant value="中国" />
+			</extract-to>
+			<extract-to field="proParam">
+				<text>
+					<expr value="div#product-detail-2" />
+				</text>
+			</extract-to>
+			<extract-to field="fare">
+				<text>
+					<expr value="dl.fare>dd.des" />
+				</text>
+			</extract-to>
+			<extract-to field="tariff">
+				<text>
+					<expr value="dl.tariff>dd.des" />
+				</text>
+			</extract-to>
+			<extract-to field="proParam">
+				<text>
+					<expr value="ul.cnt ul.clearfix" />
+				</text>
+			</extract-to>
+			<extract-to field="status">
+				<constant value="1" />
+			</extract-to>
+			<script var="_goodsData" regex="var _goodsData([\S|\s]+?)\};">
+            	<sfield key="name" extractTo="prodName"/>
+                <sfield key="category" extractTo="category1,category2,category3,category4" indexForm="1,2,3,4" split="-"/>                
+                <sfield key="imgUrl" extractTo="img"/>
+                <sfield key="price" extractTo="price"/>
+                <sfield key="id" extractTo="skuId"/>  
+                <sfield key="id" extractTo="prodId" suffix="_2"/>
+                <sfield key="promotion" extractTo="promotion"/>                         
+            </script>			
+		</document>
+	</documents>
+</config>

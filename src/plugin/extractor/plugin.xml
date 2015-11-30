@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin id="extractor" name="Extractor based XML/HTML Parser/Indexing Filter" version="1.6" provider-name="me.alad">
+
+   	<runtime>
+      	<library name="extractor.jar">
+         	<export name="*"/>
+      	</library>
+      	<library name="commons-lang3-3.1.jar"/>
+      	<library name="jsoup-1.8.1.jar"/>
+      	<library name="slf4j-api-1.7.5.jar"/>
+      	<library name="nekohtml-1.9.21.jar"/>
+      	<library name="fastjson-1.2.6.jar"/>
+      	<library name="js-1.7.7.jar"/>
+      	<library name="fastjson-1.2.6.jar"/>
+   	</runtime>
+
+   	<requires>
+      	<import plugin="nutch-extensionpoints"/>
+   	</requires>
+
+   	<extension id="me.alad.nutch.html.extractor.nutch.parseFilter" name="Extractor XML/HTML Parser filter" point="org.apache.nutch.parse.HtmlParseFilter">
+      	<implementation id="me.alad.nutch.html.extractor.nutch.ExtractorParseFilter" class="me.alad.nutch.html.extractor.nutch.ExtractorParseFilter" />
+   	</extension>
+   	
+   	<extension id="me.alad.nutch.html.extractor.nutch.indexingFilter" name="Extractor Indexing Filter" point="org.apache.nutch.indexer.IndexingFilter">
+      	<implementation id="me.alad.nutch.html.extractor.nutch.ExtractorIndexingFilter" class="me.alad.nutch.html.extractor.nutch.ExtractorIndexingFilter"/>
+   	</extension>
+   	
+   	<extension id="me.alad.nutch.html.extractor.nutch.parser" name="Extractor XML/HTML Parser" point="org.apache.nutch.parse.Parser">
+    	<implementation id="me.alad.nutch.html.extractor.nutch.ExtractorParser" class="me.alad.nutch.html.extractor.nutch.ExtractorParser">
+    		<parameter name="contentType" value="*"/>
+    	</implementation>
+   	</extension>
+   	
+   	<!--
+   	<extension id="me.alad.nutch.html.extractor.nutch.scoring"
+              name="Extractor Scoring"
+              point="org.apache.nutch.scoring.ScoringFilter">
+      <implementation id="me.alad.nutch.html.extractor.nutch.ExtractorScoringFilter"
+                      class="me.alad.nutch.html.extractor.nutch.ExtractorScoringFilter" />
+   </extension>
+   
+   
+   <extension id="me.alad.nutch.html.extractor.nutch.ExtractorUrlFilter"
+              name="Extractor URL Filter"
+              point="org.apache.nutch.net.URLFilter">
+      <implementation id="ExtractorUrlFilter"
+                      class="me.alad.nutch.html.extractor.nutch.ExtractorUrlFilter"/>
+   </extension>
+   -->
+   	
+
+</plugin>

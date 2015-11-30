@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping>
+	<fields>
+		<field dest="title" source="title" />
+		<field dest="metadesc" source="metadesc" />
+		<field dest="keywords" source="keywords" />
+		<!-- 抓取日期(格式:20150630) -->
+		<field dest="day" source="time" type="date" format="yyyyMMdd" />
+		<!-- 抓取时间 -->
+		<field dest="grabtime" source="time" />
+	</fields>
+	<requiredSourceField>title,keywords</requiredSourceField>
+</mapping>

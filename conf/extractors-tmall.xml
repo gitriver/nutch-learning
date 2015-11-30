@@ -1,0 +1,109 @@
+<config xmlns="http://www.alad.me" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.alad.me">
+	<types>
+		<type name="string" />
+		<type name="long" converter="me.alad.nutch.html.extractor.convert.LongConverter" />
+		<type name="float" converter="me.alad.nutch.html.extractor.convert.FloatConverter" />
+	</types>
+	<fields>
+		<!-- 商品名称 -->
+		<field name="prodName" type="string" />
+
+		<!-- sku编号 -->
+		<field name="skuId" type="string" />
+
+		<!-- 商品编号skuid+mallno -->
+		<field name="prodId" type="string" />
+
+		<!-- 商品分类 -->
+		<field name="category1" type="string" />
+		<field name="category2" type="string" />
+		<field name="category3" type="string" />
+		<field name="category4" type="string" />
+
+		<!-- 商品参数 -->
+		<field name="proParam" type="string" />
+
+		<!-- 商品简介 -->
+		<field name="proIntro" type="string" />
+
+		<!-- 商品促销 -->
+		<field name="promotion" type="string" />
+
+		<!-- 商品图片 -->
+		<field name="img" type="string" />
+
+		<!-- 价格 -->
+		<field name="price" type="string" />
+
+		<!-- 运费 -->
+		<field name="fare" type="string" />
+
+		<!-- 关税 -->
+		<field name="tariff" type="string" />
+
+		<!-- 商城名称 -->
+		<field name="mallName" type="string" />
+
+		<!-- 商城名称编号 -->
+		<field name="mallNo" type="string" />
+
+		<!-- 国家 -->
+		<field name="nation" type="string" />
+
+		<!-- 备注 -->
+		<field name="remark" type="string" />
+		
+		<!-- 商品价格地址 -->
+		<field name="priceUrl" type="string" />
+		
+		<!-- 商品详细URL -->
+		<field name="url" type="string" />
+		
+		<!-- 商品详细URL -->
+		<field name="urls" type="string" />
+		
+		<!-- 页面标题 -->
+		<field name="title" type="string" />
+		
+		<!-- 状态 -->
+		<field name="status" type="string" />
+		
+		<!-- tmall_tag -->
+		<field name="auctiontag" type="string" />
+	</fields>
+	<documents>		
+		<!-- 天猫国际 -->
+		<document url="^http://list.tmall.hk/search_product.htm.*" engine="css">
+			<extract-to field="mallName">
+				<constant value="天猫国际" />
+			</extract-to>
+			<extract-to field="mallNo">
+				<constant value="13" />
+			</extract-to>
+			<extract-to field="nation">
+				<constant value="中国" />
+			</extract-to>
+			<!-- 状态 -->
+			<extract-to field="status">
+				<constant value="1" />
+			</extract-to>
+			<json regex="g_page_config= ([\S|\s]+?}) ;" page="&amp;s=%s" totalPage="page.totalPage" pageSize="80" condition="page.currentPage==1">
+				<jlist key="itemList">
+                	<jattr key="title" extractTo="title"/>
+                	<jattr key="title" extractTo="prodName" cleanHtml="true"/>
+                	<jattr key="itemId" extractTo="skuId"/>
+	                <jattr key="itemId" extractTo="prodId" suffix="_13"/>
+	                
+	                <jattr key="currentPrice" extractTo="price"/>
+	                <jattr key="image" extractTo="img" prefix="http:"/>
+	                <jattr key="href" extractTo="url" prefix="http:"/>               
+	                <jattr key="price" extractTo="promotion"/>  
+	                <jattr key="ship" extractTo="fare"/> 
+	                   
+					<jattr key="auctionTag" extractTo="auctiontag"/> 
+                </jlist>             
+            </json>
+		</document>
+	</documents>
+</config>
