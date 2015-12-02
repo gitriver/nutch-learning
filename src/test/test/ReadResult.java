@@ -23,8 +23,8 @@ import org.apache.nutch.protocol.Content;
 public class ReadResult {
     public static Configuration conf;
     public static FileSystem fs;
-    public static String root = "D:/gitwork/nutch-release-1.10/build/test/customplugin/";
-    public static String dir = root + "segments/20151124131828/";
+    public static String root = "D:/gitwork/nutch-learning/build/test/customplugin/";
+    public static String dir = root + "segments/20151202103518/";
     public static String dbDir = root + "crawldb/";
 
 

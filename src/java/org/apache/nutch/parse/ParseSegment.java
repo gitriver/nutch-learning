@@ -47,6 +47,7 @@ public class ParseSegment extends NutchTool implements Tool,
   public static final Logger LOG = LoggerFactory.getLogger(ParseSegment.class);
 
   public static final String SKIP_TRUNCATED = "parser.skip.truncated";
+  public static final String SKIP_ROBOT = "parser.skip.robot";
 
   private ScoringFilters scfilters;
 

@@ -38,4 +38,4 @@
 
 # accept anything else
 +.
-#+^http://baike.baidu.com/.*
++^http://news.ifeng.com/.*

@@ -627,6 +627,7 @@ public class Fetcher extends NutchTool implements Tool,
 
     private int outlinksDepthDivisor;
     private boolean skipTruncated;
+    private boolean skipRobot;
 
     private boolean halted = false;
 
@@ -638,6 +639,7 @@ public class Fetcher extends NutchTool implements Tool,
       this.scfilters = new ScoringFilters(conf);
       this.parseUtil = new ParseUtil(conf);
       this.skipTruncated = conf.getBoolean(ParseSegment.SKIP_TRUNCATED, true);
+      this.skipRobot = conf.getBoolean(ParseSegment.SKIP_ROBOT, false);
       this.protocolFactory = new ProtocolFactory(conf);
       this.normalizers = new URLNormalizers(conf, URLNormalizers.SCOPE_FETCHER);
       this.maxCrawlDelay = conf.getInt("fetcher.max.crawl.delay", 30) * 1000;
@@ -727,6 +729,9 @@ public class Fetcher extends NutchTool implements Tool,
               redirecting = false;
               Protocol protocol = this.protocolFactory.getProtocol(fit.url
                   .toString());
+              
+              //TODO  增加了针对页面爬取时，是否需要先获取robot的配置
+              if(!skipRobot){
               BaseRobotRules rules = protocol.getRobotRules(fit.url, fit.datum);
               if (!rules.isAllowed(fit.u.toString())) {
                 // unblock
@@ -762,6 +767,15 @@ public class Fetcher extends NutchTool implements Tool,
                         + " as per robots.txt. url: " + fit.url);
                   }
                 }
+              }
+              }
+              else{
+                  FetchItemQueue fiq = fetchQueues
+                          .getFetchItemQueue(fit.queueID);
+                      if (LOG.isDebugEnabled()) {
+                        LOG.info("Crawl for queue: " + fit.queueID
+                            + " as per robots.txt. url: " + fit.url);
+                      } 
               }
               ProtocolOutput output = protocol.getProtocolOutput(fit.url,
                   fit.datum);

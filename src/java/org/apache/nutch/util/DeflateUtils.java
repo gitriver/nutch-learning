@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 public class DeflateUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(DeflateUtils.class);
-  private static final int EXPECTED_COMPRESSION_RATIO = 5;
+  private static final int EXPECTED_COMPRESSION_RATIO = 20;
   private static final int BUF_SIZE = 4096;
 
   /**

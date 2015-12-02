@@ -21,7 +21,7 @@ import org.apache.nutch.segment.SegmentReader;
  *
  */
 public class CustomPluginTest {
-    public final static Path testdir = new Path("D:/gitwork/nutch-release-1.10/build/test/customplugin");
+    public final static Path testdir = new Path("D:/gitwork/nutch-learning/build/test/customplugin");
     public static Configuration conf;
     public static FileSystem fs;
     public static Path crawldbPath;
@@ -81,6 +81,7 @@ public class CustomPluginTest {
         conf.addResource("nutch-default.xml");
         conf.addResource("nutch-site.xml");
 //        conf.addResource("crawl-tests.xml");
+        System.out.println(conf.get("plugin.folders")+"=========================");
         return conf;
     }
 
